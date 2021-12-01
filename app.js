@@ -5,7 +5,7 @@ const operatorBtns = document.querySelectorAll('.btn-operator');
 const clearBtn = document.querySelector('.btn-clear');
 const deleteBtn = document.querySelector('.btn-delete');
 
-let numInput = '';
+let numInput = '0';
 let numString1 = '';
 let numString2 = '';
 let signInput = '';
@@ -19,7 +19,6 @@ let displayArr2 = [];
 
 
 
-
 numberBtns.forEach(btn => {
   btn.addEventListener('click', numValues)
 });
@@ -29,6 +28,9 @@ operatorBtns.forEach(btn => {
 });
 
 function numValues(btn) {
+  if(numInput === '0'){
+    numInput = '';
+  }
   numInput += btn.target.value;
   if(calcArr[1]) {
     calcArr[2] = numInput;
@@ -44,7 +46,9 @@ function numValues(btn) {
 function signValues(btn) {
   signInput = btn.target.value;
   calcArr[2] ? operate() : 0;
-
+  if(numInput === ''){
+    numInput = '0';
+  }
 
   // if(outputArr[0] === '' || outputArr[0] === undefined) {numInput = 0};
 
@@ -121,7 +125,7 @@ deleteBtn.addEventListener('click', deleteLastEntry);
 
 function clearDisplayAndArr() {
   calcArr = [];
-  numInput = '';
+  numInput = '0';
   outputArr = [];
   updateDisplay1(outputArr);
   updateDisplay2(outputArr);
@@ -129,7 +133,13 @@ function clearDisplayAndArr() {
 
 function deleteLastEntry() {
   numInput = numInput.slice(0, -1)
-  console.log(calcArr[2])
+  if(numInput === ''){
+    numInput = '0';
+  }
+  if(calcArr[1]) {
+    calcArr[2] = numInput;
+  }
+  console.log(calcArr[2], numInput)
   updateDisplay2(numInput);
 }
 // function lineValue2(key) {
